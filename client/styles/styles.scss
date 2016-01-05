@@ -3,6 +3,10 @@
 
 .card {
   cursor: pointer;
+  img {
+    max-width: 100px;
+    height: auto;
+  }
 }
 
 .database-reset-button {
@@ -15,3 +19,5 @@
   justify-content: center;
   -webkit-justify-content: center;
 }
+
+
