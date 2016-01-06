@@ -6,7 +6,7 @@ AppBody = React.createClass({
 
         <div className="bar bar-header bar-light">
           <ReactRouter.Link className="button button-icon icon ion-chatbubble-working" to={"/settings"}></ReactRouter.Link>
-          <ReactRouter.Link className="h1 title" to={"/"}>Spark filtered</ReactRouter.Link>
+          <ReactRouter.Link className="h1 title" to={"/"}>SnappyChatty</ReactRouter.Link>
           <ReactRouter.Link className="button button-icon icon ion-heart" to={"/other"}></ReactRouter.Link>
         </div>
         
