@@ -8,6 +8,10 @@ const routes = (
   </ReactRouter.Route>
 )
 
+Accounts.ui.config({
+  passwordSignupFields: "USERNAME_ONLY"
+});
+
 Meteor.startup(function () {
   ReactRouter.run(routes, ReactRouter.HistoryLocation, function (Handler, state) {
     React.render(<Handler />, document.getElementById("app"));

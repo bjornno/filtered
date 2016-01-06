@@ -109,11 +109,12 @@ Card = React.createClass({
     }
     return (
       <div className="card" onTouchStart={this.moveCardInit} onTouchMove={this.moveCard} onTouchEnd={this.moveCardEnd} style={cardStyle}>
-        <div className="item item-body">
+        <div className="item item-avatar">
           <img className="full-image" src={this.props.card.image} />
-        </div>
-        <div className="item">
           <h2>{this.props.card.name}</h2>
+        </div>
+
+        <div className="item item-text-wrap">
           <p>{this.props.card.details}</p>
         </div>
       </div>

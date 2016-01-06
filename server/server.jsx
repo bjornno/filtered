@@ -3,13 +3,13 @@ Meteor.publish("myData", function() {
 })
 
 populate = function() {
-  while (MyData.find().count() < 10) {
-    MyData.insert({
-      name: faker.name.findName(),
-      image: faker.image.cats() + "?" + Random.hexString(24),
-      details: faker.lorem.sentences()
-    })
-  }
+  // while (MyData.find().count() < 10) {
+  //   MyData.insert({
+  //     name: faker.name.findName(),
+  //     image: faker.image.cats() + "?" + Random.hexString(24),
+  //     details: faker.lorem.sentences()
+  //   })
+  // }
 }
 
 Meteor.startup(function() {
@@ -18,11 +18,11 @@ Meteor.startup(function() {
 
 Meteor.methods({
   repopulate: function() {
-    MyData.insert({
-      name: faker.name.findName(),
-      image: faker.image.cats() + "?" + Random.hexString(24),
-      details: faker.lorem.sentences()
-    })
+    // MyData.insert({
+    //   name: faker.name.findName(),
+    //   image: faker.image.cats() + "?" + Random.hexString(24),
+    //   details: faker.lorem.sentences()
+    // })
   },
   reset: function() {
     MyData.remove({affirmative: true});
