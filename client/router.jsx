@@ -5,6 +5,7 @@ const routes = (
     <ReactRouter.Route name="settings" path="/settings" handler={Settings} />
     <ReactRouter.DefaultRoute handler={AppLoading} />
     <ReactRouter.NotFoundRoute handler={AppNotFound} />
+        
   </ReactRouter.Route>
 )
 

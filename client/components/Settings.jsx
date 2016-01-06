@@ -15,15 +15,22 @@ Settings = React.createClass({
     React.findDOMNode(this.refs.textInput).value = "";
   },
   render() {
-    return (
-      <div className="card" >
+      return (
+        <div className="container">
+        <AccountsUIWrapper />
+        {Meteor.user ? 
+        <div className="card" >
         <div className="item item-avatar">
           <h2>Bjørn Nordlund</h2>
         </div>
         <form className="new-message" onSubmit={this.handleSubmit} >
           <input type="text" ref="textInput" placeholder="Say something...."/>
         </form>
-      </div>
-    )
-  }
+        </div> : ''
+        }
+      </div>)
+    }
+      
+    
+  
 });
