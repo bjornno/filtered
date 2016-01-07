@@ -1,4 +1,13 @@
 Settings = React.createClass({
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    let data = Meteor.user()
+    let id = Meteor.userId()
+    return {
+      user: data,
+      id: id
+    }
+  },
   handleSubmit(event) {
     event.preventDefault();
  
@@ -6,7 +15,7 @@ Settings = React.createClass({
     var text = React.findDOMNode(this.refs.textInput).value.trim();
  
     MyData.insert({
-      name: "Bjørn Nordlund",
+      name: this.data.user.profile.name,
       //image: faker.image.cats() + "?" + Random.hexString(24),
       details: text
     });
@@ -18,10 +27,12 @@ Settings = React.createClass({
       return (
         <div className="container">
         <AccountsUIWrapper />
-        {Meteor.user ? 
+        {this.data.user ? 
         <div className="card" >
         <div className="item item-avatar">
-          <h2>Bjørn Nordlund</h2>
+          <img className="full-image" src={"http://graph.facebook.com/" + this.data.id + "/picture/?type=large"} />
+          
+          <h2>{this.data.user.profile.name}</h2>
         </div>
         <form className="new-message" onSubmit={this.handleSubmit} >
           <input type="text" ref="textInput" placeholder="Say something...."/>
