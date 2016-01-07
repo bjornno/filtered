@@ -17,6 +17,7 @@ react
 npm-container
 digilord:faker
 accounts-ui
-accounts-password
+#accounts-password
 accounts-facebook
 service-configuration
+maxkferg:facebook-collections

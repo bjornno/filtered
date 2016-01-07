@@ -6,12 +6,29 @@ Home = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     let handle = Meteor.subscribe("myData")
-    let data = MyData.find().fetch()
+    let data = MyData.find().fetch().reverse()
+    let user = Meteor.user()
     return {
       loading: !handle.ready(),
-      users: data
+      users: data,
+      user: user
     }
   },
+  handleSubmit(event) {
+    event.preventDefault();
+ 
+    // Find the text field via the React ref
+    var text = React.findDOMNode(this.refs.textInput).value.trim();
+ 
+    MyData.insert({
+      name: this.data.user.profile.name,
+      //image: faker.image.cats() + "?" + Random.hexString(24),
+      details: text
+    });
+ 
+    // Clear form
+    React.findDOMNode(this.refs.textInput).value = "";
+  },
   removeCard(_id) {
     MyData.remove(_id)
     Meteor.call("repopulate")
@@ -36,7 +53,16 @@ Home = React.createClass({
     if (this.data.loading) {
       return <h1>Loading</h1>
     }
-    return <div>{this.renderCards()}</div>
+    return(
+    <div className="container">
+        {this.data.user ? 
+          <div className="card">
+        <form className="new-message" onSubmit={this.handleSubmit} >
+          <input type="text" ref="textInput" placeholder="Say something...."/>
+        </form> </div>: ''
+        }
+    <div>{this.renderCards()}</div>
+    </div>)
   }
 })
 
@@ -109,11 +135,7 @@ Card = React.createClass({
     }
     return (
       <div className="card" onTouchStart={this.moveCardInit} onTouchMove={this.moveCard} onTouchEnd={this.moveCardEnd} style={cardStyle}>
-        <div className="item item-avatar">
-          <img className="full-image" src={this.props.card.image} />
-          <h2>{this.props.card.name}</h2>
-        </div>
-
+        {this.props.card.name}
         <div className="item item-text-wrap">
           <p>{this.props.card.details}</p>
         </div>
