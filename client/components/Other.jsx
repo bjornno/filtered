@@ -1,7 +1,7 @@
 Other = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
-    let handle = Meteor.subscribe("myData")
+    let handle = Meteor.subscribe("myData", Geolocation.latLng())
     let data = MyData.find({affirmative: true}).fetch()
     return {
       loading: !handle.ready(),

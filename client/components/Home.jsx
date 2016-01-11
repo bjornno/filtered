@@ -5,7 +5,7 @@ document.addEventListener("touchstart", function(){}, false)
 Home = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
-    let handle = Meteor.subscribe("myData")
+    let handle = Meteor.subscribe("myData", Geolocation.latLng())
     let data = MyData.find().fetch().reverse()
     let user = Meteor.user()
     return {
@@ -18,10 +18,16 @@ Home = React.createClass({
     event.preventDefault();
  
     // Find the text field via the React ref
-    var text = React.findDOMNode(this.refs.textInput).value.trim();
- 
+    let text = React.findDOMNode(this.refs.textInput).value.trim();
+    //let geo = Session.get('geo');
+    let geo = Geolocation.latLng();
+    console.log(geo);
     MyData.insert({
       name: this.data.user.profile.name,
+      loc: {
+        type: "Point",
+        coordinates: [geo.lng, geo.lat]
+      }, 
       //image: faker.image.cats() + "?" + Random.hexString(24),
       details: text
     });
@@ -139,6 +145,10 @@ Card = React.createClass({
         <div className="item item-text-wrap">
           <p>{this.props.card.details}</p>
         </div>
+          <a className="item item-icon-left item-icon-right" href="#">
+            <i className="icon ion-chatboxes"></i>
+            <i className="icon ion-thumbsup"></i>
+          </a>
       </div>
     )
   }

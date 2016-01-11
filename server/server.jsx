@@ -1,5 +1,25 @@
-Meteor.publish("myData", function() {
-  return MyData.find()
+MyData._ensureIndex({'loc': '2dsphere'});
+
+Meteor.publish("myData", function(geo) {
+  //var loc = Geolocation.latLng();
+  if (geo) {
+  return MyData.find(
+  {
+     loc:
+       { $near :
+          {
+            $geometry: { 
+              type: "Point",  
+              coordinates: [ geo.lng, geo.lat ] },
+            $minDistance: 0,
+            $maxDistance: 1000
+          }
+       }
+   }
+   )
+} else {
+  return null;
+}
 })
 
 ServiceConfiguration.configurations.remove({

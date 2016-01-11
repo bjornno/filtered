@@ -21,3 +21,4 @@ accounts-ui
 accounts-facebook
 service-configuration
 maxkferg:facebook-collections
+mdg:geolocation
