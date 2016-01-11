@@ -17,9 +17,4 @@ Meteor.startup(function () {
   ReactRouter.run(routes, ReactRouter.HistoryLocation, function (Handler, state) {
     React.render(<Handler />, document.getElementById("app"));
   });
-  Tracker.autorun(function () {
-    var geo = Geolocation.latLng();
-    Session.set('geo', geo);
-    //console.log(geo);
-  }); 
 });
