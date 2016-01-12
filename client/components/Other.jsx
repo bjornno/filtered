@@ -1,8 +1,9 @@
 Other = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
+    let user = Meteor.user()
     let handle = Meteor.subscribe("myData", Geolocation.latLng())
-    let data = MyData.find({affirmative: true}).fetch()
+    let data = MyData.find({ favoured: { "$in" : [user._id]}}).fetch()
     return {
       loading: !handle.ready(),
       users: data
@@ -17,11 +18,16 @@ Other = React.createClass({
     }
     let list = this.data.users.map((user) => {
       return (
-        <div className="item item-avatar" key={user._id}>
-          <img src={user.image}></img>
+        <div className="list card">
+        <div className="item item-avatar">
+          <img src="mcfly.jpg"></img>
           <h2>{user.name}</h2>
+          <p>{moment(user.timestamp).fromNow()}</p>
+        </div>
+        <div className="item item-body">
           <p>{user.details}</p>
         </div>
+      </div>
       )
     })
     return (

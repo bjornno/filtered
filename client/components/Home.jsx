@@ -5,9 +5,17 @@ document.addEventListener("touchstart", function(){}, false)
 Home = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
-    let handle = Meteor.subscribe("myData", Geolocation.latLng())
-    let data = MyData.find().fetch().reverse()
     let user = Meteor.user()
+    let handle = Meteor.subscribe("myData", Session.get('geo'))
+    let data = null
+    if (user) { 
+      data = MyData.find({"$and": [
+                              { favoured: { "$nin" : [user._id]}}, 
+                              { deleted: { "$nin" : [user._id]}}
+                              ]}).fetch().reverse()
+    } else {
+      data = MyData.find().fetch().reverse()
+    }
     return {
       loading: !handle.ready(),
       users: data,
@@ -20,8 +28,7 @@ Home = React.createClass({
     // Find the text field via the React ref
     let text = React.findDOMNode(this.refs.textInput).value.trim();
     //let geo = Session.get('geo');
-    let geo = Geolocation.latLng();
-    console.log(geo);
+    let geo = Session.get('geo');
     MyData.insert({
       name: this.data.user.profile.name,
       timestamp: new Date(),
@@ -36,17 +43,22 @@ Home = React.createClass({
     // Clear form
     React.findDOMNode(this.refs.textInput).value = "";
   },
+  takePicture() {
+    MeteorCamera.getPicture(function(error, data) {
+        Meteor.call("addPicture", data, that._id);
+      });
+  },
   removeCard(_id) {
-    MyData.remove(_id)
+    MyData.update({_id}, {$push: { deleted: this.data.user._id }})
     Meteor.call("repopulate")
   },
   setAffirmative(_id) {
-    MyData.update({_id}, {$set: { affirmative: true}})
+   // MyData.update({_id}, {$set: { affirmative: true}})
+    MyData.update({_id}, {$push: { favoured: this.data.user._id }})
     Meteor.call("repopulate")
   },
   renderCards() {
     return this.data.users
-      .filter((user) =>  user.affirmative != true)
       .map((card) => {
         return <Card
           key={card._id}
@@ -64,9 +76,12 @@ Home = React.createClass({
     <div className="container">
         <div className="card">
           {this.data.user ? 
+            <p>
+            <span className="subdued icon ion-camera" onClick={this.takePicture} />
             <form className="new-message" onSubmit={this.handleSubmit} >
               <input type="text" ref="textInput" placeholder="Say something...."/>
-            </form> : 'Log in to write something'
+            </form> 
+            </p> : 'Log in to write something'
           }
         </div>
     <div>{this.renderCards()}</div>
@@ -151,9 +166,9 @@ Card = React.createClass({
         <div className="item item-body">
           <p>{this.props.card.details}</p>
           <p>
+            <span className="subdued icon ion-trash-a" onClick={this.props.remove}>  </span>
+            <span className="subdued icon ion-thumbsup" onClick={this.props.setAffirmative}>  </span>
             <a href="#" className="subdued icon ion-chatboxes"> 5 Comments </a>
-            <a href="#" className="subdued icon ion-thumbsup"> 1 Like </a>
-        
           </p>
         </div>
       </div>

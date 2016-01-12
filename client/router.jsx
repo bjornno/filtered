@@ -14,6 +14,9 @@ Accounts.ui.config({
 });
 
 Meteor.startup(function () {
+  Tracker.autorun(function () {
+    Session.set('geo', Geolocation.latLng());
+  }); 
   ReactRouter.run(routes, ReactRouter.HistoryLocation, function (Handler, state) {
     React.render(<Handler />, document.getElementById("app"));
   });

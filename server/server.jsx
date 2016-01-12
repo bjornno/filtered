@@ -1,4 +1,6 @@
 MyData._ensureIndex({'loc': '2dsphere'});
+MyData._ensureIndex( { "timestamp": 4 }, { expireAfterSeconds: 3*24*60*60 } )
+
 
 Meteor.publish("myData", function(geo) {
   //var loc = Geolocation.latLng();
