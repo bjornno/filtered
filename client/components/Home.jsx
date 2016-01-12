@@ -24,6 +24,7 @@ Home = React.createClass({
     console.log(geo);
     MyData.insert({
       name: this.data.user.profile.name,
+      timestamp: new Date(),
       loc: {
         type: "Point",
         coordinates: [geo.lng, geo.lat]
@@ -140,15 +141,20 @@ Card = React.createClass({
       cardStyle.marginBottom = "-" + (document.getElementsByClassName("card")[0].offsetHeight + 20) + "px"
     }
     return (
-      <div className="card" onTouchStart={this.moveCardInit} onTouchMove={this.moveCard} onTouchEnd={this.moveCardEnd} style={cardStyle}>
-        {this.props.card.name}
-        <div className="item item-text-wrap">
-          <p>{this.props.card.details}</p>
+      <div className="list card" onTouchStart={this.moveCardInit} onTouchMove={this.moveCard} onTouchEnd={this.moveCardEnd} style={cardStyle}>
+        <div className="item item-avatar">
+          <img src="mcfly.jpg"></img>
+          <h2>{this.props.card.name}</h2>
+          <p>{moment(this.props.card.timestamp).fromNow()}</p>
         </div>
-          <a className="item item-icon-left item-icon-right" href="#">
-            <i className="icon ion-chatboxes"></i>
-            <i className="icon ion-thumbsup"></i>
-          </a>
+        <div className="item item-body">
+          <p>{this.props.card.details}</p>
+          <p>
+            <a href="#" className="subdued icon ion-chatboxes"> 5 Comments </a>
+            <a href="#" className="subdued icon ion-thumbsup"> 1 Like </a>
+        
+          </p>
+        </div>
       </div>
     )
   }
