@@ -26,6 +26,11 @@ Other = React.createClass({
         </div>
         <div className="item item-body">
           <p>{user.details}</p>
+          <div className="bar bar-footer bar-dark">
+            <span className="button icon ion-trash-a" ></span>
+            <span className="button icon ion-thumbsup" > {user.favoured ? user.favoured.size : 0} likes </span>
+            <span className="button icon ion-chatboxes"> 0 comments </span>
+          </div>
         </div>
       </div>
       )

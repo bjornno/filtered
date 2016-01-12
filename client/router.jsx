@@ -15,7 +15,12 @@ Accounts.ui.config({
 
 Meteor.startup(function () {
   Tracker.autorun(function () {
-    Session.set('geo', Geolocation.latLng());
+    let loc = Geolocation.latLng();
+    if (loc) {
+      Session.set('geo', {
+        lat: parseFloat(loc.lat.toFixed(3)), 
+        lng: parseFloat(loc.lng.toFixed(3))});
+    }
   }); 
   ReactRouter.run(routes, ReactRouter.HistoryLocation, function (Handler, state) {
     React.render(<Handler />, document.getElementById("app"));

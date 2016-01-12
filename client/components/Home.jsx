@@ -6,15 +6,19 @@ Home = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     let user = Meteor.user()
-    let handle = Meteor.subscribe("myData", Session.get('geo'))
+    let geo = Session.get('geo')
+    if (!geo) {
+      loading: true;
+    }
+    let handle = Meteor.subscribe("myData", geo)
     let data = null
     if (user) { 
       data = MyData.find({"$and": [
                               { favoured: { "$nin" : [user._id]}}, 
                               { deleted: { "$nin" : [user._id]}}
-                              ]}).fetch().reverse()
+                              ]}, {sort: {timestamp: -1}, limit: 1}).fetch().reverse()
     } else {
-      data = MyData.find().fetch().reverse()
+      data = MyData.find({}, {sort: {timestamp: -1}, limit: 1}).fetch().reverse()
     }
     return {
       loading: !handle.ready(),
@@ -165,11 +169,11 @@ Card = React.createClass({
         </div>
         <div className="item item-body">
           <p>{this.props.card.details}</p>
-          <p>
-            <span className="subdued icon ion-trash-a" onClick={this.props.remove}>  </span>
-            <span className="subdued icon ion-thumbsup" onClick={this.props.setAffirmative}>  </span>
-            <a href="#" className="subdued icon ion-chatboxes"> 5 Comments </a>
-          </p>
+        </div>
+        <div className="item item-divider bar bar-footer bar-dark">
+          <span className="button icon ion-trash-a" onClick={this.props.remove}></span>
+          <span className="button icon ion-thumbsup" onClick={this.props.setAffirmative}> {this.props.card.favoured ? this.props.card.favoured.size : 0} likes </span>
+          <span className="button icon ion-chatboxes"> 0 comments </span>
         </div>
       </div>
     )
