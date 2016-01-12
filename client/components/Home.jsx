@@ -62,12 +62,13 @@ Home = React.createClass({
     }
     return(
     <div className="container">
-        {this.data.user ? 
-          <div className="card">
-        <form className="new-message" onSubmit={this.handleSubmit} >
-          <input type="text" ref="textInput" placeholder="Say something...."/>
-        </form> </div>: ''
-        }
+        <div className="card">
+          {this.data.user ? 
+            <form className="new-message" onSubmit={this.handleSubmit} >
+              <input type="text" ref="textInput" placeholder="Say something...."/>
+            </form> : 'Log in to write something'
+          }
+        </div>
     <div>{this.renderCards()}</div>
     </div>)
   }
