@@ -157,6 +157,9 @@ Card = React.createClass({
         " rotate("+this.state.x/10 + "deg)",
       WebkitTransition: this.state.dragging
     }
+    let isTouchScreen = (('ontouchstart' in window)
+      || (navigator.maxTouchPoints > 0)
+      || (navigator.msMaxTouchPoints > 0));
     if (this.state.x <= -1000 || this.state.x >= 1000) {
       cardStyle.marginBottom = "-" + (document.getElementsByClassName("card")[0].offsetHeight + 20) + "px"
     }
@@ -170,11 +173,14 @@ Card = React.createClass({
         <div className="item item-body">
           <p>{this.props.card.details}</p>
         </div>
+        {isTouchScreen ? 
+           <span>&nbsp; {this.props.card.favoured ? this.props.card.favoured.length : 0} likes </span>
+         : 
         <div className="item item-divider bar bar-footer bar-dark">
           <span className="button icon ion-trash-a" onClick={this.props.remove}></span>
-          <span className="button icon ion-thumbsup" onClick={this.props.setAffirmative}> {this.props.card.favoured ? this.props.card.favoured.size : 0} likes </span>
-          <span className="button icon ion-chatboxes"> 0 comments </span>
+          <span className="button icon ion-thumbsup" onClick={this.props.setAffirmative}> {this.props.card.favoured ? this.props.card.favoured.length : 0} likes </span>
         </div>
+        }
       </div>
     )
   }
