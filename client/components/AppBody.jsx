@@ -4,10 +4,10 @@ AppBody = React.createClass({
       <div className="ionic-body">
        
 
-        <div className="bar bar-header bar-light">
-          <div className="item button-small"><AccountsUIWrapper /></div>
-          <ReactRouter.Link className="button button-icon icon ion-android-home" to={"/"}></ReactRouter.Link>
-          <ReactRouter.Link className="button button-icon icon ion-heart" to={"/other"}></ReactRouter.Link>
+        <div className="tabs bar-header">
+          <ReactRouter.Link className="tab-item button button-icon icon ion-at" to={"/settings"}> Accounts </ReactRouter.Link>
+          <ReactRouter.Link className="tab-item button button-icon icon ion-home" to={"/"}> Snappy </ReactRouter.Link>
+          <ReactRouter.Link className="tab-item button button-icon icon ion-heart" to={"/other"}> Liked </ReactRouter.Link>
         </div>
         <div className="view">
           <div className="scroll-content ionic-scroll">
