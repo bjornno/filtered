@@ -52,7 +52,7 @@ Home = React.createClass({
   takePicture() {
     that = this;
     MeteorCamera.getPicture(function(error, imagedata) {
-        Meteor.call("addPicture", imagedata, that.data.user._id, Session.get('geo'), Session.get('address'));
+        Meteor.call("addPicture", imagedata, that.data.user.profile.name, Session.get('geo'), Session.get('address'));
       });
   },
   removeCard(_id) {
