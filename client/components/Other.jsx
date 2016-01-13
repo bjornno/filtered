@@ -27,10 +27,11 @@ Other = React.createClass({
           <div className="item item-avatar">
             <img src="mcfly.jpg"></img>
             <h2>{user.name}</h2>
-            <p>{moment(user.timestamp).fromNow()}</p>
+            <p>{moment(user.timestamp).fromNow()} from {user.place}</p>
           </div>
           <div className="item item-body">
             <p>{user.details}</p>
+            <img src={this.props.card.image_url} height="200"/>
           </div>
           <div className="item item-divider bar bar-footer bar-dark">
             <span className="button icon ion-trash-a"></span>
