@@ -48,8 +48,9 @@ Home = React.createClass({
     React.findDOMNode(this.refs.textInput).value = "";
   },
   takePicture() {
-    MeteorCamera.getPicture(function(error, data) {
-        Meteor.call("addPicture", data, that._id);
+    that = this;
+    MeteorCamera.getPicture(function(error, imagedata) {
+        Meteor.call("addPicture", imagedata, that.data.user._id, Session.get('geo'));
       });
   },
   removeCard(_id) {
@@ -172,6 +173,7 @@ Card = React.createClass({
         </div>
         <div className="item item-body">
           <p>{this.props.card.details}</p>
+          <img src={this.props.card.image_url} height="200"/>
         </div>
         {isTouchScreen ? 
            <span>&nbsp; {this.props.card.favoured ? this.props.card.favoured.length : 0} likes </span>

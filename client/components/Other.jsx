@@ -19,20 +19,19 @@ Other = React.createClass({
     let list = this.data.users.map((user) => {
       return (
         <div className="list card">
-        <div className="item item-avatar">
-          <img src="mcfly.jpg"></img>
-          <h2>{user.name}</h2>
-          <p>{moment(user.timestamp).fromNow()}</p>
-        </div>
-        <div className="item item-body">
-          <p>{user.details}</p>
-        </div>
+          <div className="item item-avatar">
+            <img src="mcfly.jpg"></img>
+            <h2>{user.name}</h2>
+            <p>{moment(user.timestamp).fromNow()}</p>
+          </div>
+          <div className="item item-body">
+            <p>{user.details}</p>
+          </div>
           <div className="item item-divider bar bar-footer bar-dark">
             <span className="button icon ion-trash-a"></span>
             <span className="button icon ion-thumbsup" > {user.favoured ? user.favoured.size : 0} likes </span>
           </div>
         </div>
-      </div>
       )
     })
     return (
