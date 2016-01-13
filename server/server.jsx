@@ -3,8 +3,6 @@ MyData._ensureIndex( { "timestamp": 4 }, { expireAfterSeconds: 3*24*60*60 } )
 
 
 Meteor.publish("myData", function(geo) {
-  console.log("server: " + geo.lat + " " + geo.lng);
-  //var loc = Geolocation.latLng();
   if (geo) {
   return MyData.find(
   {

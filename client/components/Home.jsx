@@ -33,6 +33,7 @@ Home = React.createClass({
     let text = React.findDOMNode(this.refs.textInput).value.trim();
     //let geo = Session.get('geo');
     let geo = Session.get('geo');
+    let address = Session.get('address');
     MyData.insert({
       name: this.data.user.profile.name,
       timestamp: new Date(),
@@ -40,6 +41,7 @@ Home = React.createClass({
         type: "Point",
         coordinates: [geo.lng, geo.lat]
       }, 
+      place: address,
       //image: faker.image.cats() + "?" + Random.hexString(24),
       details: text
     });
@@ -50,17 +52,14 @@ Home = React.createClass({
   takePicture() {
     that = this;
     MeteorCamera.getPicture(function(error, imagedata) {
-        Meteor.call("addPicture", imagedata, that.data.user._id, Session.get('geo'));
+        Meteor.call("addPicture", imagedata, that.data.user._id, Session.get('geo'), Session.get('address'));
       });
   },
   removeCard(_id) {
     MyData.update({_id}, {$push: { deleted: this.data.user._id }})
-    Meteor.call("repopulate")
   },
   setAffirmative(_id) {
-   // MyData.update({_id}, {$set: { affirmative: true}})
     MyData.update({_id}, {$push: { favoured: this.data.user._id }})
-    Meteor.call("repopulate")
   },
   renderCards() {
     return this.data.users
@@ -86,7 +85,7 @@ Home = React.createClass({
             <form className="new-message" onSubmit={this.handleSubmit} >
               <input type="text" ref="textInput" placeholder="Say something...."/>
             </form> 
-            </p> : 'Log in to write something'
+            </p> : 'Add an account and log in to participate!'
           }
         </div>
     <div>{this.renderCards()}</div>
@@ -95,6 +94,13 @@ Home = React.createClass({
 })
 
 Card = React.createClass({
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    let user = Meteor.user()
+    return {
+      user: user
+    }
+  },
   getInitialState() {
     return {
       x: 0,
@@ -105,6 +111,7 @@ Card = React.createClass({
     }
   },
   moveCardInit(e) {
+    if (!this.data.user) {return}
     e.preventDefault();
     this.setState({
       initialX: e.touches[0].pageX,
@@ -113,6 +120,7 @@ Card = React.createClass({
     })
   },
   moveCard(e) {
+    if (!this.data.user) {return}
     e.preventDefault()
     deltaX = (e.touches[0].pageX - this.state.initialX)
     deltaY = (e.touches[0].pageY - this.state.initialY)
@@ -122,6 +130,7 @@ Card = React.createClass({
     })
   },
   moveCardEnd(e) {
+    if (!this.data.user) {return}
     e.preventDefault()
     if (e.changedTouches[0].pageX < 50) {
       this.setState({
@@ -165,11 +174,11 @@ Card = React.createClass({
       cardStyle.marginBottom = "-" + (document.getElementsByClassName("card")[0].offsetHeight + 20) + "px"
     }
     return (
-      <div className="list card" onTouchStart={this.moveCardInit} onTouchMove={this.moveCard} onTouchEnd={this.moveCardEnd} style={cardStyle}>
+      <div className="list card" onTouchStart={this.moveCardInit} onTouchMove={this.moveCard} onTouchEnd={this.moveCardEnd} style={cardStyle}>   
         <div className="item item-avatar">
           <img src="mcfly.jpg"></img>
           <h2>{this.props.card.name}</h2>
-          <p>{moment(this.props.card.timestamp).fromNow()}</p>
+          <p>{moment(this.props.card.timestamp).fromNow()} from {this.props.card.place}</p>
         </div>
         <div className="item item-body">
           <p>{this.props.card.details}</p>

@@ -3,7 +3,12 @@ Other = React.createClass({
   getMeteorData() {
     let user = Meteor.user()
     let handle = Meteor.subscribe("myData", Geolocation.latLng())
-    let data = MyData.find({ favoured: { "$in" : [user._id]}}).fetch()
+    let data = null
+    if (user) { 
+      data = MyData.find({ favoured: { "$in" : [user._id]}}).fetch()
+    } else {
+      data = MyData.find({ foo: "bar"}).fetch()
+    }
     return {
       loading: !handle.ready(),
       users: data

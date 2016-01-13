@@ -17,9 +17,14 @@ Meteor.startup(function () {
   Tracker.autorun(function () {
     let loc = Geolocation.latLng();
     if (loc) {
+      reverseGeocode.getLocation(loc.lat, loc.lng, function(location){
+        address = reverseGeocode.getAddrStr();
+        Session.set('address', address)
+      });
       Session.set('geo', {
         lat: parseFloat(loc.lat.toFixed(3)), 
-        lng: parseFloat(loc.lng.toFixed(3))});
+        lng: parseFloat(loc.lng.toFixed(3))
+      });
     }
   }); 
   ReactRouter.run(routes, ReactRouter.HistoryLocation, function (Handler, state) {
