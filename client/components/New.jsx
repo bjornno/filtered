@@ -7,20 +7,18 @@ New = React.createClass({
     }
   },
   handleSubmit(event) {
+    console.log(event)
     event.preventDefault();
  
     // Find the text field via the React ref
     let text = React.findDOMNode(this.refs.textInput).value.trim();
     let eventTitl = React.findDOMNode(this.refs.eventTitle).value.trim();
-    let file = React.findDOMNode(this.refs.eventImage).value;
-    if (file) {
-      this.uploadPicture(file);
-    }
     
-    console.log(file)
     //let geo = Session.get('geo');
     let geo = Session.get('geo');
     let address = Session.get('address');
+    console.log("2")
+    console.log(this.imageFile);
     MyData.insert({
       name: this.data.user.profile.name,
       timestamp: new Date(),
@@ -38,10 +36,11 @@ New = React.createClass({
     React.findDOMNode(this.refs.textInput).value = "";
     React.findDOMNode(this.refs.eventTitle).value = "";
   },
-
+  
   uploadPicture(e) {
     that = this;
     var file = e.target.files[0];
+    this.file = e.target.files[0];
     var reader = new FileReader();
     reader.onload = function(upload) {
       Meteor.call("addPicture", upload.target.result, that.data.user.profile.name, Session.get('geo'), Session.get('address'))
@@ -56,7 +55,7 @@ New = React.createClass({
   },
   isIos() {
     console.log(/iPad|iPhone|iPod/.test(navigator.platform))
-    return /iPad|iPhone|iPod/.test(navigator.platform);
+    return !/iPad|iPhone|iPod/.test(navigator.platform);
   },
   render() {
       return (
@@ -74,7 +73,7 @@ New = React.createClass({
           <label className="item item-input item-floating-label">
             <span className="input-label">Picture</span>
             {this.isIos() ?
-              <input type="file" ref="eventImage" accept="image/*" name="image" accept="image/*" onChange={this.uploadPicture}> Add a picture </input>
+              <input type="file" className="subdued icon ion-camera" ref="eventImage" accept="image/*" name="image" accept="image/*" onChange={this.uploadPicture}></input>
               :
               <span className="subdued icon ion-camera" onClick={this.takePicture}> Add a picture </span>
             }
