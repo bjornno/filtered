@@ -78,16 +78,37 @@ Home = React.createClass({
     }
     return(
     <div className="container">
-        <div className="card">
-          {this.data.user ? 
-            <p>
-            <span className="subdued icon ion-camera" onClick={this.takePicture} />
-            <form className="new-message" onSubmit={this.handleSubmit} >
-              <input type="text" ref="textInput" placeholder="Say something...."/>
-            </form> 
-            </p> : 'Add an account and log in to participate!'
-          }
-        </div>
+        {
+          this.data.user ? 
+          <ul className="list">
+          <li className="item item-toggle">
+            Filter based on location
+            <label className="toggle toggle-assertive">
+              <input type="checkbox"/>
+              <div className="track">
+                <div className="handle"></div>
+              </div>
+            </label>
+          </li>
+          <li className="item item-toggle">
+            Filter based on friends
+            <label className="toggle toggle-assertive">
+              <input type="checkbox"/>
+              <div className="track">
+                <div className="handle"></div>
+              </div>
+            </label>
+          </li>
+        </ul>
+           :
+        <div className="card"> <p> Showing the most liked event near you. Add an account and log in to participate!</p></div>
+        } 
+        
+        
+
+        
+          
+        
     <div>{this.renderCards()}</div>
     </div>)
   }

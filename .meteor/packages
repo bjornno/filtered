@@ -25,3 +25,4 @@ mdg:geolocation
 momentjs:moment
 mdg:camera
 jaymc:google-reverse-geocode
+meteoric:autoform-ionic

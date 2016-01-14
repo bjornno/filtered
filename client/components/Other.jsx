@@ -31,7 +31,7 @@ Other = React.createClass({
           </div>
           <div className="item item-body">
             <p>{user.details}</p>
-            <img src={this.props.card.image_url} height="200"/>
+            <img src={user.image_url} height="200"/>
           </div>
           <div className="item item-divider bar bar-footer bar-dark">
             <span className="button icon ion-trash-a"></span>
