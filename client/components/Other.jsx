@@ -5,7 +5,7 @@ Other = React.createClass({
     let handle = Meteor.subscribe("myData", Geolocation.latLng())
     let data = null
     if (user) { 
-      data = MyData.find({ favoured: { "$in" : [user._id]}}).fetch()
+      data = MyData.find({ favoured: { "$in" : [user._id]}}, {sort: {timestamp: -1}}).fetch()
     } else {
       data = MyData.find({ foo: "bar"}).fetch()
     }

@@ -8,6 +8,7 @@ Settings = React.createClass({
   },
   render() {
       return (
+        <div className="list card">
         <ul className="list">
           <li className="item item-toggle">
              Location
@@ -50,7 +51,7 @@ Settings = React.createClass({
             <AccountsUIWrapper />
           </div>
           </li>
-        </ul>)
+        </ul></div>)
         
     }
       

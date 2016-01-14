@@ -16,9 +16,9 @@ Home = React.createClass({
       data = MyData.find({"$and": [
                               { favoured: { "$nin" : [user._id]}}, 
                               { deleted: { "$nin" : [user._id]}}
-                              ]}, {sort: {timestamp: -1}, limit: 1}).fetch().reverse()
+                              ]}, {sort: {timestamp: -1}, limit: 3}).fetch()
     } else {
-      data = MyData.find({}, {sort: {timestamp: -1}, limit: 1}).fetch().reverse()
+      data = MyData.find({}, {sort: {timestamp: -1}, limit: 3}).fetch()
     }
     return {
       loading: !handle.ready(),
@@ -83,13 +83,7 @@ Home = React.createClass({
           ''
            :
         <div className="card"> <p> Showing the most liked event near you. Add an account and log in to participate!</p></div>
-        } 
-        
-        
-
-        
-          
-        
+        }           
     <div>{this.renderCards()}</div>
     </div>)
   }
@@ -188,7 +182,10 @@ Card = React.createClass({
         </div>
         <div className="item item-body">
           <p>{this.props.card.details}</p>
-          <img src={this.props.card.image_url} height="200"/>
+          {this.props.card.image_url?
+          <img src={this.props.card.image_url} height="150"/>
+          : ''
+          }
         </div>
         {isTouchScreen ? 
            <span>&nbsp; {this.props.card.favoured ? this.props.card.favoured.length : 0} likes </span>

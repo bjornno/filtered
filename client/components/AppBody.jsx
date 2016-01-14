@@ -2,13 +2,23 @@ AppBody = React.createClass({
   render() {
     return (
       <div className="ionic-body">
-       
-
-        <div className="tabs bar-header">
-          <ReactRouter.Link className="tab-item button button-icon icon ion-home" to={"/"}> Snappy </ReactRouter.Link>
-          <ReactRouter.Link className="tab-item button button-icon icon ion-heart" to={"/other"}> Liked </ReactRouter.Link>
-          <ReactRouter.Link className="tab-item button button-icon icon ion-plus-circled" to={"/new"}> New Event </ReactRouter.Link>
-          <ReactRouter.Link className="tab-item button button-icon icon ion-gear-a" to={"/settings"}> Settings </ReactRouter.Link>
+        <div className="tabs bar-header tabs-icon-top">
+          <ReactRouter.Link className="tab-item" to={"/"}> 
+            <i className="icon ion-home"></i>
+            Home
+          </ReactRouter.Link>
+          <ReactRouter.Link className="tab-item" to={"/other"}> 
+            <i className="icon ion-heart"></i>
+            Liked
+          </ReactRouter.Link>
+          <ReactRouter.Link className="tab-item" to={"/new"}> 
+            <i className="icon ion-plus-circled"></i>
+            New Event
+          </ReactRouter.Link>
+          <ReactRouter.Link className="tab-item" to={"/settings"}> 
+            <i className="icon ion-gear-a"></i>
+            Settings
+          </ReactRouter.Link>
         </div>
         <div className="view">
           <div className="scroll-content ionic-scroll">

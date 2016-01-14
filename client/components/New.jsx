@@ -55,11 +55,11 @@ New = React.createClass({
   },
   isIos() {
     console.log(/iPad|iPhone|iPod/.test(navigator.platform))
-    return !/iPad|iPhone|iPod/.test(navigator.platform);
+    return /iPad|iPhone|iPod/.test(navigator.platform);
   },
   render() {
       return (
-        <div className="list">
+        <div className="list card">
         {this.data.user ? 
         <form className="new-message" onSubmit={this.handleSubmit}> 
           <label className="item item-input item-floating-label">
