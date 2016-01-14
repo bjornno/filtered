@@ -56,7 +56,7 @@ New = React.createClass({
   },
   isIos() {
     console.log(/iPad|iPhone|iPod/.test(navigator.platform))
-    return  !/iPad|iPhone|iPod/.test(navigator.platform);
+    return /iPad|iPhone|iPod/.test(navigator.platform);
   },
   render() {
       return (
