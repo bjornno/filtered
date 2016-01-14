@@ -174,11 +174,12 @@ Card = React.createClass({
         <div className="item item-avatar">
           <img src="mcfly.jpg"></img>
           <h2>{this.props.card.name}</h2>
-          <p>{moment(this.props.card.timestamp).fromNow()} from {this.props.card.place}</p>
+          <p>{moment(this.props.card.timestamp).fromNow()}</p>
         </div>
         <div className="item item-divider">
-            <h2>{this.props.card.eventTitle}</h2>
-            {moment(this.props.card.eventTime).format('MMMM Do YYYY, h:mm:ss a')}
+            <h1>{this.props.card.eventTitle}</h1>
+            <p>{moment(this.props.card.eventTime).format('MMMM Do YYYY, h:mm:ss a')}</p>
+            <p>{this.props.card.place}</p>
         </div>
         <div className="item item-body">
           <p>{this.props.card.details}</p>

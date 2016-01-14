@@ -13,7 +13,7 @@ Meteor.publish("myData", function(geo) {
               type: "Point",  
               coordinates: [ geo.lng, geo.lat ] },
             $minDistance: 0,
-            $maxDistance: 1000
+            $maxDistance: 100000
           }
        }
    }

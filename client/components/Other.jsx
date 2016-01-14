@@ -33,9 +33,10 @@ Other = React.createClass({
             <p>{user.details}</p>
             <img src={user.image_url} height="200"/>
           </div>
-          <div className="item item-divider bar bar-footer bar-dark">
+          <div className="item item-divider">
             <span className="button icon ion-trash-a"></span>
-            <span className="button icon ion-thumbsup" > {user.favoured ? user.favoured.size : 0} likes </span>
+            <span className="button icon ion-thumbsup" > Skal </span>
+            <span className="button icon ion-thumbsdown" > Skal ikke </span>
           </div>
         </div>
       )
