@@ -82,8 +82,17 @@ Home = React.createClass({
           this.data.user ? 
           <ul className="list">
           <li className="item item-toggle">
-            Filter based on location
-            <label className="toggle toggle-assertive">
+             Location
+            <label className="toggle toggle-calm">
+              <input type="checkbox" checked/>
+              <div className="track">
+                <div className="handle"></div>
+              </div>
+            </label>
+          </li>
+          <li className="item item-toggle">
+             Friends
+            <label className="toggle toggle-calm">
               <input type="checkbox"/>
               <div className="track">
                 <div className="handle"></div>
@@ -91,8 +100,17 @@ Home = React.createClass({
             </label>
           </li>
           <li className="item item-toggle">
-            Filter based on friends
-            <label className="toggle toggle-assertive">
+              My Categories
+            <label className="toggle toggle-calm">
+              <input type="checkbox"/>
+              <div className="track">
+                <div className="handle"></div>
+              </div>
+            </label>
+          </li>
+          <li className="item item-toggle">
+              Invitations
+            <label className="toggle toggle-calm">
               <input type="checkbox"/>
               <div className="track">
                 <div className="handle"></div>
@@ -200,6 +218,10 @@ Card = React.createClass({
           <img src="mcfly.jpg"></img>
           <h2>{this.props.card.name}</h2>
           <p>{moment(this.props.card.timestamp).fromNow()} from {this.props.card.place}</p>
+        </div>
+        <div className="item item-divider">
+            <h2>{this.props.card.eventTitle}</h2>
+            {moment(this.props.card.eventTime).format('MMMM Do YYYY, h:mm:ss a')}
         </div>
         <div className="item item-body">
           <p>{this.props.card.details}</p>
