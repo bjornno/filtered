@@ -17,6 +17,11 @@ New = React.createClass({
     let address = React.findDOMNode(this.refs.address).value.trim();
     let category = React.findDOMNode(this.refs.selectedValue).value;
     let eventDate = React.findDOMNode(this.refs.eventDate).value;
+    if (!eventDate) {
+      eventDate = new Date();
+    } else {
+      eventDate = new Date(eventDate);
+    }
     let geo = Session.get('geo'); // todo: get lat/lng from address 
     MyData.insert({
       user_id: this.data.user._id,
