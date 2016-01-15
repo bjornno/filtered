@@ -8,12 +8,16 @@ AppBody = React.createClass({
             Home
           </ReactRouter.Link>
           <ReactRouter.Link className="tab-item" to={"/other"}> 
-            <i className="icon ion-heart"></i>
+            <i className="icon ion-magnet"></i>
             Liked
           </ReactRouter.Link>
           <ReactRouter.Link className="tab-item" to={"/new"}> 
             <i className="icon ion-plus-circled"></i>
             New Event
+          </ReactRouter.Link>
+          <ReactRouter.Link className="tab-item" to={"/mine"}> 
+            <i className="icon ion-person"></i>
+            Mine
           </ReactRouter.Link>
           <ReactRouter.Link className="tab-item" to={"/settings"}> 
             <i className="icon ion-gear-a"></i>
