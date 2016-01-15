@@ -19,6 +19,7 @@ New = React.createClass({
     let eventDate = React.findDOMNode(this.refs.eventDate).value;
     let geo = Session.get('geo'); // todo: get lat/lng from address 
     MyData.insert({
+      user_id: this.data.user._id,
       name: this.data.user.profile.name,
       timestamp: new Date(),
       loc: {
