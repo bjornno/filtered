@@ -27,11 +27,18 @@ Other = React.createClass({
           <div className="item item-avatar">
             <img src="mcfly.jpg"></img>
             <h2>{user.name}</h2>
-            <p>{moment(user.timestamp).fromNow()} from {user.place}</p>
+            <p>{moment(user.timestamp).fromNow()}</p>
+          </div>
+          <div className="item item-divider">
+            <h2>{user.eventTitle}</h2>
+            <p>{moment(user.eventTime).format('MMMM Do YYYY, h:mm:ss a')}</p>
+            <p>{user.place}</p>
+          </div>
+          <div className="item item-image">
+            <img src={user.category_image}/>
           </div>
           <div className="item item-body">
             <p>{user.details}</p>
-            <img src={user.image_url} height="200"/>
           </div>
           <div className="item item-divider">
             <span className="button icon ion-trash-a"></span>

@@ -16,9 +16,9 @@ Home = React.createClass({
       data = MyData.find({"$and": [
                               { favoured: { "$nin" : [user._id]}}, 
                               { deleted: { "$nin" : [user._id]}}
-                              ]}, {sort: {timestamp: -1}, limit: 3}).fetch()
+                              ]}, {sort: {timestamp: -1}, limit: 1}).fetch()
     } else {
-      data = MyData.find({}, {sort: {timestamp: -1}, limit: 3}).fetch()
+      data = MyData.find({}, {sort: {timestamp: -1}, limit: 1}).fetch()
     }
     return {
       loading: !handle.ready(),
@@ -177,7 +177,7 @@ Card = React.createClass({
           <p>{moment(this.props.card.timestamp).fromNow()}</p>
         </div>
         <div className="item item-divider">
-            <h1>{this.props.card.eventTitle}</h1>
+            <h2>{this.props.card.eventTitle}</h2>
             <p>{moment(this.props.card.eventTime).format('MMMM Do YYYY, h:mm:ss a')}</p>
             <p>{this.props.card.place}</p>
         </div>
