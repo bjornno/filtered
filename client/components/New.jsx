@@ -2,25 +2,22 @@ New = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     let data = Meteor.user()
+    let address = Session.get('address')
     return {
-      user: data
+      user: data,
+      address: address
     }
   },
   handleSubmit(event) {
-    console.log(event)
     event.preventDefault();
  
     // Find the text field via the React ref
     let text = React.findDOMNode(this.refs.textInput).value.trim();
     let eventTitl = React.findDOMNode(this.refs.eventTitle).value.trim();
-    //let category = React.findDOMNode(this.refs.category).value.trim();
+    let address = React.findDOMNode(this.refs.address).value.trim();
     let category = React.findDOMNode(this.refs.selectedValue).value;
-    console.log(category);
-    //let geo = Session.get('geo');
-    let geo = Session.get('geo');
-    let address = Session.get('address');
-    console.log("2")
-    console.log(this.imageFile);
+    let eventDate = React.findDOMNode(this.refs.eventDate).value;
+    let geo = Session.get('geo'); // todo: get lat/lng from address 
     MyData.insert({
       name: this.data.user.profile.name,
       timestamp: new Date(),
@@ -30,8 +27,8 @@ New = React.createClass({
       }, 
       place: address,
       category_image: category,
-      //image: faker.image.cats() + "?" + Random.hexString(24),
       eventTitle: eventTitl,
+      eventTime: eventDate,
       details: text
     });
  
@@ -73,9 +70,11 @@ New = React.createClass({
             <span className="input-label">Description</span>
             <input type="text" ref="textInput" placeholder="Create a description for your new Event"/>
           </label>
-          <label className="item item-input item-floating-label">
-            <span className="input-label">Category</span>
-            <select ref="selectedValue">
+          <label className="item item-input item-select">
+              <div className="input-label">
+                Category
+              </div>
+              <select ref="selectedValue">
               <option value="concert.jpeg" >Any Event</option>
               <option value="lunch.jpeg">Lunch</option>
               <option value="cafe.jpeg">Cafe</option>
@@ -83,9 +82,13 @@ New = React.createClass({
               <option value="concert.jpeg">concert</option>
             </select>
           </label>
-          
           <label className="item item-input item-floating-label">
-          <input type="date" ref="eventDate">When?</input>
+            <span className="input-label">Address</span>
+            <input type="text" ref="address" placeholder={this.data.address}/>
+          </label>
+          <label className="item item-input item-floating-label">
+            <span className="input-label">When</span>
+            <input type="date" ref="eventDate"></input>
           </label>
           <li className="item item-toggle">
              limit to friends

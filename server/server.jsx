@@ -1,6 +1,9 @@
 MyData._ensureIndex({'loc': '2dsphere'});
 MyData._ensureIndex( { "timestamp": 4 }, { expireAfterSeconds: 3*24*60*60 } )
 
+      var geo = new GeoCoder();
+      var result = geo.geocode('Karl Johan oslo');
+      console.log(result);
 
 Meteor.publish("myData", function(geo) {
   if (geo) {
