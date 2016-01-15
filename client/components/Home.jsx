@@ -181,6 +181,9 @@ Card = React.createClass({
             <p>{moment(this.props.card.eventTime).format('MMMM Do YYYY, h:mm:ss a')}</p>
             <p>{this.props.card.place}</p>
         </div>
+        <div className="item item-image">
+          <img src={this.props.card.category_image}/>
+        </div>
         <div className="item item-body">
           <p>{this.props.card.details}</p>
           {this.props.card.image_url?

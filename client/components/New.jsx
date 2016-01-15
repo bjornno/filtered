@@ -13,7 +13,7 @@ New = React.createClass({
     // Find the text field via the React ref
     let text = React.findDOMNode(this.refs.textInput).value.trim();
     let eventTitl = React.findDOMNode(this.refs.eventTitle).value.trim();
-    
+    let category = React.findDOMNode(this.refs.category).value.trim();
     //let geo = Session.get('geo');
     let geo = Session.get('geo');
     let address = Session.get('address');
@@ -27,6 +27,7 @@ New = React.createClass({
         coordinates: [geo.lng, geo.lat]
       }, 
       place: address,
+      category_image: category,
       //image: faker.image.cats() + "?" + Random.hexString(24),
       eventTitle: eventTitl,
       details: text
@@ -69,6 +70,10 @@ New = React.createClass({
           <label className="item item-input item-floating-label">
             <span className="input-label">Description</span>
             <input type="text" ref="textInput" placeholder="Create a description for your new Event"/>
+          </label>
+          <label className="item item-input item-floating-label">
+            <span className="input-label">Category</span>
+            <input type="text" ref="category" placeholder="Category (beer.jpeg, cafe.jpeg, concert.jpeg, lunch.jpeg)"/>
           </label>
           <label className="item item-input item-floating-label">
             <span className="input-label">Picture</span>
