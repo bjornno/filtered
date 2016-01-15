@@ -13,7 +13,9 @@ New = React.createClass({
     // Find the text field via the React ref
     let text = React.findDOMNode(this.refs.textInput).value.trim();
     let eventTitl = React.findDOMNode(this.refs.eventTitle).value.trim();
-    let category = React.findDOMNode(this.refs.category).value.trim();
+    //let category = React.findDOMNode(this.refs.category).value.trim();
+    let category = React.findDOMNode(this.refs.selectedValue).value;
+    console.log(category);
     //let geo = Session.get('geo');
     let geo = Session.get('geo');
     let address = Session.get('address');
@@ -73,16 +75,15 @@ New = React.createClass({
           </label>
           <label className="item item-input item-floating-label">
             <span className="input-label">Category</span>
-            <input type="text" ref="category" placeholder="Category (beer.jpeg, cafe.jpeg, concert.jpeg, lunch.jpeg)"/>
+            <select ref="selectedValue">
+              <option value="concert.jpeg" >Any Event</option>
+              <option value="lunch.jpeg">Lunch</option>
+              <option value="cafe.jpeg">Cafe</option>
+              <option value="beer.jpeg">Pub</option>
+              <option value="concert.jpeg">concert</option>
+            </select>
           </label>
-          <label className="item item-input item-floating-label">
-            <span className="input-label">Picture</span>
-            {this.isIos() ?
-              <input type="file" className="subdued icon ion-camera" ref="eventImage" accept="image/*" name="image" accept="image/*" onChange={this.uploadPicture}></input>
-              :
-              <span className="subdued icon ion-camera" onClick={this.takePicture}> Add a picture </span>
-            }
-          </label>
+          
           <label className="item item-input item-floating-label">
           <input type="date" ref="eventDate">When?</input>
           </label>

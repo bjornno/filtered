@@ -12,6 +12,7 @@ Meteor.publish("myData", function(geo) {
             $geometry: { 
               type: "Point",  
               coordinates: [ geo.lng, geo.lat ] },
+            $distanceField: "dist",
             $minDistance: 0,
             $maxDistance: 100000
           }
